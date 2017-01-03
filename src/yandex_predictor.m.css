@@ -10,7 +10,7 @@
 .input {
 	border: 1px solid rgb(221, 221, 221);
 	box-sizing: border-box;
-	padding: 5px;
+	padding: 6px;
 	padding-left: 3px;
 	padding-right: 3px;
 	transition-duration: 0.1s;
@@ -18,6 +18,8 @@
 	box-shadow: inset 0px 0px 3px #efefef;
 	background-color: white;
 	width: 100%;
+	font-size: 16px;
+	font-family: textbook, sans-serif;
 }
 
 .input:hover {
@@ -67,7 +69,7 @@
 
 .help {
 	position: absolute;
-    top: 145px;
+    top: 155px;
     color: #020202;
 	
 	transition-duration: 0.1s;
