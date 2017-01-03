@@ -7,7 +7,7 @@
 	font-family: textbook, sans-serif;
 }
 
-.inputBox {
+.input {
 	border: 1px solid rgb(221, 221, 221);
 	box-sizing: border-box;
 	padding: 5px;
@@ -17,42 +17,20 @@
 	cursor: text;
 	box-shadow: inset 0px 0px 3px #efefef;
 	background-color: white;
+	width: 100%;
 }
 
-.inputBox:hover {
+.input:hover {
 	background-color: rgb(240, 240, 240);
 	box-shadow: 0px 0px 3px #efefef;
-}
-
-.inputBox.hasInput {
-	background-color: white;
-}
-
-.input {
-	position: relative;
-	display: inline-block;
-	min-width: 10px;
-	min-height: 16px;
 }
 
 .input:focus {
 	outline: none;
 }
 
-.input::after {
-	position: absolute;
-	left: 0;
-	top: 1px;
-	width: 180px;
-	opacity: 0;
-	transition-duration: 0.1s;
-	color: rgb(132, 132, 132);
-	height: 16px;
-	content: 'Начните вводить текст';
-}
-
-.placeholder.input::after {
-	opacity: 1;
+.input.hasInput {
+	background-color: white;
 }
 
 .prediction_list {
@@ -73,7 +51,10 @@
 }
 
 .spinner {
-	margin-left: 10px;
+	margin: 0;
+    margin-top: 10px;
+    margin-left: 1px;
+	
 	width: 1em !important;
     color: #ffd600;
 	transition-duration: 0.5s;
