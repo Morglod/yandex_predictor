@@ -55,28 +55,23 @@ export default class YandexPredictor extends React.Component {
 		return 	<div className={styles.page}>
 					<div className={styles.advert}>Реализовано с помощью сервиса «Яндекс.Предиктор» <a href="https://tech.yandex.ru/predictor/">https://tech.yandex.ru/predictor/</a></div>
 					<div className={styles.yandex_predictor}>
-						<div
-							onClick={() => this.focusInput()}
-							className={[styles.inputBox, !isInputBlank && styles.hasInput]}
-						>
-							<div
-								ref="input"
-								className={[styles.input, isInputBlank && styles.placeholder]}
-								onInput={evt => this.handleInput(evt.target.innerText)}
-								onKeyDown={this.handleKeyPress}
-								contentEditable
-							/>
+						<input
+							ref="input"
+							className={[styles.input, !isInputBlank && styles.hasInput]}
+							placeholder="Начните вводить текст"
+							onChange={evt => this.handleInput(evt.target.value)}
+							onKeyDown={this.handleKeyPress}
+						/>
+						<div className={styles.prediction_list}>
 							<FA
 								name="spinner"
 								spin
 								className={[styles.spinner, !isInputBlank && timer && styles.visible]}
 							/>
-						</div>
-						<div className={styles.prediction_list}>{
-							prediction.map((x,i) =>
+							{prediction.map((x,i) =>
 								<div className={[styles.prediction, (selectedPrediction === i) && styles.selected]} key={i}>{x}</div>
-							)
-						}</div>
+							)}
+						</div>
 						<div className={[styles.help, prediction.length !== 0 && styles.visible]}>
 							Используйте стрелки <Btn fa="arrow-circle-up">Вверх</Btn> и <Btn fa="arrow-circle-down">Вниз</Btn>, а затем <Btn fa="sign-in">Enter</Btn> для использования подсказки.
 						</div>
@@ -109,14 +104,14 @@ export default class YandexPredictor extends React.Component {
 		
 		// Дополнить текст выбранным предположением
 		if(predictionPos === 0)
-			input.innerText += text;
+			input.value += text;
 		else if(predictionPos > 0)
-			input.innerText += ' ' + text;
+			input.value += ' ' + text;
 		else {
-			const words = input.innerText.split(' ');
+			const words = input.value.split(' ');
 			const last_word = words[words.length-1];
 			delete words[words.length-1];
-			input.innerText = [...words, last_word.substr(0, last_word.length + predictionPos) + text].join(' ');
+			input.value = [...words, last_word.substr(0, last_word.length + predictionPos) + text].join(' ');
 		}
 		
 		this.focusInput(true);
@@ -150,12 +145,7 @@ export default class YandexPredictor extends React.Component {
 		const input = ReactDOM.findDOMNode(this.refs.input);
 		if(document.activeElement === input && !toEnd) return;
 		
-		const selection = window.getSelection();
-		selection.removeAllRanges();
-		var range = document.createRange();
-		range.selectNodeContents(input);
-		selection.addRange(range);
-		selection.collapseToEnd();
 		input.focus();
+		input.selectionStart = input.selectionEnd = input.value.length;
 	}
 }
